@@ -9,8 +9,8 @@ const CreateAd = ({ onCreatedAd }) => {
   const [description, setDescription] = useState('');
   const onChangeDescription = (ev) => setDescription(ev.target.value);
 
-  const [isFavorite, setIsFavorite] = useState(false);
-  const onFavorite = () => setIsFavorite(!isFavorite);
+  const [isFav, setIsFavorite] = useState(false);
+  const onFavorite = () => setIsFavorite(!isFav);
 
   const onFormSubmit = (ev) => {
     ev.preventDefault();
@@ -18,7 +18,7 @@ const CreateAd = ({ onCreatedAd }) => {
     onCreatedAd({
       title,
       description,
-      isFavorite
+      isFav
     });
   };
 
@@ -27,7 +27,7 @@ const CreateAd = ({ onCreatedAd }) => {
       <form onSubmit={onFormSubmit}>
         <p><input type="text" placeholder="title" onChange={onChangeTitle} value={title} /></p>
         <p><input type="text" placeholder="description" onChange={onChangeDescription} value={description} /></p>
-        <p><label><input onChange={onFavorite} className='card-input' type="checkbox" checked={isFavorite} />Favourite</label></p>
+        <p><label><input onChange={onFavorite} className='card-input' type="checkbox" checked={isFav} />Favourite</label></p>
         <input type="submit" />
       </form>
     </section>
