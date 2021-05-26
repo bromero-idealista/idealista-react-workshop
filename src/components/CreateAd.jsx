@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from './Button';
 
-const CreateAd = (props) => {
+const CreateAd = ({ onCreatedAd }) => {
 
   const [title, setTitle] = useState('');
   const onChangeTitle = (ev) => setTitle(ev.target.value);
@@ -12,14 +12,23 @@ const CreateAd = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const onFavorite = () => setIsFavorite(!isFavorite);
 
+  const onFormSubmit = (ev) => {
+    ev.preventDefault();
+
+    onCreatedAd({
+      title,
+      description,
+      isFavorite
+    });
+  };
+
   return (
     <section>
-      <form>
+      <form onSubmit={onFormSubmit}>
         <p><input type="text" placeholder="title" onChange={onChangeTitle} value={title} /></p>
-        <div>{title}</div>
         <p><input type="text" placeholder="description" onChange={onChangeDescription} value={description} /></p>
         <p><label><input onChange={onFavorite} className='card-input' type="checkbox" checked={isFavorite} />Favourite</label></p>
-        <Button name="Sent query" />
+        <input type="submit" />
       </form>
     </section>
   );
