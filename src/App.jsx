@@ -13,15 +13,9 @@ export default () => {
 
     const [list, setList] = useState(adsData);
     const onSetList = (ad) => {
-        ad = {...ad, id: ids.next().value}
+        ad = { ...ad, id: ids.next().value }
         setList([...list, ad]);
     };
-
-//    const onFavorited = (ad) => {
-//        let newAd = list.find(a => a.id === ad.id)
-//        newAd.isFav = !newAd.isFav
-//        setList([...list, newAd]);
-//    };
 
     const onFavorited = id => {
         const newAdList = list.map(a => {
@@ -33,12 +27,17 @@ export default () => {
         setList(newAdList);
     };
 
+    const onDiscarded = id => {
+        const newAdList = list.filter(a => a.id !== id);
+        setList(newAdList);
+    };
+
     return (
         <div>
             <CreateAd onCreatedAd={onSetList} />
             {
                 list.map((ad) =>
-                    <Ad onFavorited={onFavorited} title={ad.title} description={ad.description} isFav={ad.isFav} id={ad.id} key={ad.id} />
+                    <Ad id={ad.id} key={ad.id} title={ad.title} description={ad.description} isFav={ad.isFav} onFavorited={onFavorited} onDiscarded={onDiscarded} />
                 )
             }
         </div>
