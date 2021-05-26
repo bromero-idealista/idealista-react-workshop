@@ -1,27 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Button from './Button';
 
-const Ad = ({ title = '', description = '', isFav = false } = {}) => {
-    return (
-        <article className={`card-container ${isFav ? 'fav' : ''}`}>
-            <figure className='card-figure'>
-                <img src="" />
-            </figure>
-                
-            <div className='card-box'>
-                <h2 className='card-h2'>{title}</h2>
-                <p className='card-text'>{description}</p>
-                <div className='card-actions'>
-                    <label className='card-label'>
-                        <input className='card-input' type="checkbox" checked={isFav} />
-                        <span className='card-checkbox'>
-                            <span className='card-favorite'>Favorite?</span>
-                        </span>
-                    </label>
-                    <button>Discard</button>
-                </div> 
-            </div>
-        </article>
-    );
+const Ad = (props) => {
+
+  const [title, setTitle] = useState(props.message);
+  const onChangeTitle = (ev) => setTitle(ev.target.value);
+
+  const [description, setDescription] = useState(props.desc);
+  const onChangeDescription = (ev) => setDescription(ev.target.value);
+
+  const [isFavorite, setIsFavorite] = useState(props.isFav);
+  const onFavorite = () => setIsFavorite(!isFavorite);
+
+  return (
+    <article>
+      <h1>{props.title}</h1>
+      <p>{props.desc}</p>
+      <p><input type="text" onChange={onChangeTitle} value={title} /></p>
+      <p><input type="text" onChange={onChangeDescription} value={description} /></p>
+      <p><label><input onChange={onFavorite} className='card-input' type="checkbox" checked={isFavorite} />Favourite</label></p>
+      <Button name="Sent query" />
+    </article>
+
+    // onChange=(ev) => setTitle(ev.target.value)
+  )
 };
 
 export default Ad;
